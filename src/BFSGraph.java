@@ -19,7 +19,7 @@ public class BFSGraph {
     }
 
     void BFS(int rootNode){
-        // initializing verices
+        // initializing vertices
         boolean visited[] = new boolean[vertices];
 
         // creating queue from linked list
