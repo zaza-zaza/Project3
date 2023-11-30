@@ -20,5 +20,11 @@ public class Graph {
         vertices++;
     }
 
-
+    public static void main(String[] args){
+        Vertex v1 = new Vertex("v1", 13.5, 1.34);
+        Vertex v2 = new Vertex("v2", 100, 50);
+        Edge e = new Edge("e", v1, v2);
+        System.out.println(v1.getDist(v1, v2));
+        System.out.println(e.getWeight());
+    }
 }

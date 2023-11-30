@@ -4,19 +4,19 @@ public class Edge implements Comparable<Edge> {
     public double weight;
     public Vertex v, w;
 
-    Edge(String ID, double weight, Vertex v, Vertex w){
+    Edge(String ID, Vertex v, Vertex w){
         this.ID = ID;
         this.weight = weight;
         this.v = v;
         this.w = w;
     }
-
     public String getID() {
         return ID;
     }
 
     public double getWeight() {
-        return weight;
+        // edge weight for dijkstra's algorithm
+        return v.getDist(v,w);
     }
 
     public void setWeight(double weight) {
@@ -38,6 +38,7 @@ public class Edge implements Comparable<Edge> {
     public void setW(Vertex w) {
         this.w = w;
     }
+
 
     @Override
     public int compareTo(Edge o) {

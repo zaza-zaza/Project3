@@ -1,14 +1,18 @@
 public class Vertex implements Comparable<Vertex>{
 
     public final String ID;
-    public double dist, longitude, latitude;
+    public double dist, longitude, latitude, ac, bc;
     public boolean visited;
     public Vertex path;
+    public Vertex vertex1, vertex2;
 
     Vertex(String ID, double longitude, double latitude){
      this.ID = ID;
      this.longitude = longitude;
      this.latitude = latitude;
+     this.dist = dist;
+     this.ac = ac;
+     this.bc =bc;
     }
 
     public void setDist(double dist) {
@@ -31,8 +35,11 @@ public class Vertex implements Comparable<Vertex>{
         this.path = path;
     }
 
-    public double getDist() {
-        return dist;
+    public double getDist(Vertex v1, Vertex v2) {
+        // creating distance between vertices
+        ac = Math.abs(v1.getLatitude() - v2.getLatitude());
+        bc = Math.abs(v1.getLongitude() - v2.getLongitude());
+        return Math.hypot(ac, bc);
     }
 
     public double getLongitude() {
