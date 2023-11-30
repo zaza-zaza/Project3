@@ -1,4 +1,6 @@
-public class BFSGraph extends URLinkedList {
+import java.util.Iterator;
+
+public class BFSGraph {
     private int vertices; // record number of vertices
     private URLinkedList<Integer> adjList[];
 
@@ -12,14 +14,18 @@ public class BFSGraph extends URLinkedList {
        }
     }
     // edge adding method
-    void addEdge(int rootNode){
+    void addEdge(int v, int w){
+        adjList[v].add(w);
+    }
+
+    void BFS(int rootNode){
         // initializing verices
         boolean visited[] = new boolean[vertices];
 
         // creating queue from linked list
         URLinkedList<Integer> q = new URLinkedList<>();
 
-        // if the currnt node is visited enqueue
+        // if the current node is visited enqueue
         visited[rootNode] = true;
         q.add(rootNode);
 
@@ -31,8 +37,26 @@ public class BFSGraph extends URLinkedList {
             // find adjacent nodes
 
             Iterator<Integer> i = adjList[rootNode].iterator();
+            while(i.hasNext()){
+                int n = i.next();
+                if(!visited[n]){
+                    visited[n] = true;
+                    q.add(n);
+                }
+            }
         }
     }
 
+    public static void main(String[] args){
+        BFSGraph g = new BFSGraph(5);
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(0, 3);
+        g.addEdge(1, 2);
+        g.addEdge(2, 4);
+        //print BFS sequence
+        System.out.println("Breadth-first traversal of graph with 0 as starting vertex:");
+        g.BFS(0);
+    }
 
 }
