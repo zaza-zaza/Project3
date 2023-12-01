@@ -1,37 +1,72 @@
-
 public class Graph {
 
-    public HashTable<String, Vertex> adjList; // adjacency list
-    public int edges;
-    public int vertices; // track the number of vertices added to the graph
+    private URLinkedList<Vertex> vertices;
+    private boolean isWeighted;
+    private boolean isDirected;
 
-    public int matrix[][];
-    boolean visited[][];
-
-
-    public Heap<Edge> pq = new Heap<>();
-
-    // graph constructor
-    Graph(){
-        adjList = new HashTable<>();
-        edges = 0;
-        vertices = 0;
+    public Graph(boolean inputIsWeighted, boolean inputIsDirected){
+        this.vertices = new URLinkedList<Vertex>();
+        this.isWeighted = inputIsWeighted;
+        this.isDirected = inputIsDirected;
     }
 
-    public void addVertex(Vertex vertex){
-        adjList.put(vertex.ID, vertex);
-        vertices++;
+    public Vertex addVertex(String data){
+        Vertex newVertex = new Vertex(data);
+        this.vertices.add(newVertex);
+        return newVertex;
     }
 
-    public void addVertex(Vertex vertex){
+    public void addEdge(Vertex v1, Vertex v2, Double weight){
+        if(!this.isWeighted){
+            weight = null;
+        }
+        v1.addEdge(v2, weight);
+        if(!this.isDirected){
+            v2.addEdge(v1, weight);
+        }
+    }
 
+    public void removeEdge(Vertex v1, Vertex v2){
+        v1.removeEdge(v2);
+        if(!this.isDirected){
+            v2.removeEdge(v1);
+        }
+    }
+
+    public void removeVertex(Vertex vertex){
+        this.vertices.remove(vertex);
+    }
+    public URLinkedList<Vertex> getVertices() {
+        return this.vertices;
+    }
+    public boolean isWeighted(){
+        return this.isWeighted;
+    }
+    public boolean isDirected(){
+        return this.isDirected;
+    }
+
+    // searches for vertex in adj list
+    public Vertex getVertexByValue(String value){
+        for(Vertex v : this.vertices){
+            if(v.getID() == value){
+                return v;
+            }
+        }
+        return null;
+    }
+    public void print(){
+        for(Vertex v : this.vertices){
+            v.print(isWeighted);
+        }
     }
 
     public static void main(String[] args){
-//        Vertex v1 = new Vertex("v1", 13.5, 1.34);
-//        Vertex v2 = new Vertex("v2", 100, 50);
-//        Edge e = new Edge("e", v1, v2);
-//        System.out.println(v1.getDist(v1, v2));
-//        System.out.println(e.getWeight());
+        Graph g = new Graph(true, true);
+        Vertex cliftonStation = g.addVertex("Clifton");
+        Vertex capeMayStation = g.addVertex("Cape May");
+
+        g.addEdge(cliftonStation, capeMayStation, 1000.0);
+        g.print();
     }
 }

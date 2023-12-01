@@ -1,5 +1,6 @@
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 /**
  * @author Zachary Garson
@@ -352,32 +353,31 @@ public class URLinkedList<E> implements Iterable<E> {
 		return false;
 	}
 	
-	@Override
-	public Iterator<E> iterator() {
-		return new Iterator<E>() {
-            private URNode<E> current = head;
-
-            @Override
-            public boolean hasNext() {
-                return current != null;
-            }
-
-            @Override
-            public E next() {
-                if (!hasNext()) {
-                    throw new java.util.NoSuchElementException();
-                }
-                E element = current.element();
-                current = current.next();
-                return element;
-            }
-
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException("remove() method is not supported.");
-            }
-        };	
-	}
+//	public Iterator<E> iterator() {
+//		return new Iterator<E>() {
+//            private URNode<E> current = head;
+//
+//            @Override
+//            public boolean hasNext() {
+//                return current != null;
+//            }
+//
+//            @Override
+//            public E next() {
+//                if (!hasNext()) {
+//                    throw new java.util.NoSuchElementException();
+//                }
+//                E element = current.element();
+//                current = current.next();
+//                return element;
+//            }
+//
+//            @Override
+//            public void remove() {
+//                throw new UnsupportedOperationException("remove() method is not supported.");
+//            }
+//        };
+//	}
 		
 	public E remove(int index) {
         if (index < 0 || index > size()) {
@@ -662,7 +662,45 @@ public class URLinkedList<E> implements Iterable<E> {
             return element;
         }
 	}
+	public Iterator<E> iterator() {
+		return new Iterator<E>() {
+			private URNode<E> current = head;
+			private URNode<E> lastReturned = null;
 
+			@Override
+			public boolean hasNext() {
+				return current != null;
+			}
+
+			@Override
+			public E next() {
+				if (!hasNext()) {
+					throw new java.util.NoSuchElementException();
+				}
+				lastReturned = current;
+				current = current.next();
+				return lastReturned.element();
+			}
+
+			@Override
+			public void remove() {
+				if (lastReturned == null) {
+					throw new IllegalStateException("remove() called before next()");
+				}
+				URLinkedList.this.remove(lastReturned.element());
+				lastReturned = null;
+			}
+		};
+	}
+	public void removeIf(Predicate<? super E> filter) {
+		Iterator<E> iterator = iterator();
+		while (iterator.hasNext()) {
+			E element = iterator.next();
+			if (filter.test(element)) {
+				iterator.remove();
+			}
+		}
+	}
 	
 }
 

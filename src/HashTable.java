@@ -142,21 +142,47 @@ public class HashTable<Key, Value> extends UR_HashTable<Key, Value> implements I
 	public Iterator<Key> iterator() {
 		return new Iterator<Key>() {
 			private int current = 0;
-			
+
 			@Override
 			public boolean hasNext() {
-				while(current < m && keys[current] == null) {
+				while (current < m && keys[current] == null) {
 					current++;
 				}
 				return current < m;
 			}
+
 			@Override
 			public Key next() {
-				if(!hasNext()) {
+				if (!hasNext()) {
 					throw new NoSuchElementException();
 				}
-				return keys[current++];
+				Key key = keys[current++];
+				return key;
 			}
 		};
 	}
+
+	public static class Entry<Key, Value> {
+		Key key;
+		Value value;
+
+		Entry(Key key, Value value) {
+			this.key = key;
+			this.value = value;
+		}
+	}
+
+	// ... existing code ...
+
+	public Iterable<Entry<Key, Value>> entrySet() {
+		URLinkedList<Entry<Key, Value>> entries = new URLinkedList<>();
+		for (int i = 0; i < m; i++) {
+			if (keys[i] != null) {
+				entries.add(new Entry<>(keys[i], vals[i]));
+			}
+		}
+		return entries;
+	}
+
+
 }

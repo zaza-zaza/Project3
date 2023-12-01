@@ -1,47 +1,24 @@
-public class Edge implements Comparable<Edge> {
+public class Edge {
 
-    public final String ID;
-    public double weight;
-    public Vertex v, w;
+    private Vertex start;
+    private Vertex end;
+    private Double weight;
 
-    Edge(String ID, Vertex v, Vertex w){
-        this.ID = ID;
-        this.weight = weight;
-        this.v = v;
-        this.w = w;
-    }
-    public String getID() {
-        return ID;
-    }
-
-    public double getWeight() {
-        // edge weight for dijkstra's algorithm
-        return v.getDist(v,w);
-    }
-
-    public void setWeight(double weight) {
+    public Edge(Vertex startV, Vertex endV, Double weight){
+        this.start = startV;
+        this.end = endV;
         this.weight = weight;
     }
 
-    public Vertex getV() {
-        return v;
+    public Vertex getStart() {
+        return start;
     }
 
-    public void setV(Vertex v) {
-        this.v = v;
+    public Vertex getEnd() {
+        return end;
     }
 
-    public Vertex getW() {
-        return w;
-    }
-
-    public void setW(Vertex w) {
-        this.w = w;
-    }
-
-
-    @Override
-    public int compareTo(Edge o) {
-        return 0;
+    public Double getWeight() {
+        return weight;
     }
 }
