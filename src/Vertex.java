@@ -1,41 +1,57 @@
+
 public class Vertex {
 
-    private String ID;
-    private URLinkedList<Edge> edges;
+    private String data;
+    private MyArrayList<Edge> edges;
+    protected Vertex v1, v2;
+    protected Double distance, ac, bc, longitude, latitude;
+
 
     public Vertex(String name){
-        this.ID = name;
-        this.edges = new URLinkedList<Edge>();
+        this.data = name;
+        this.edges = new MyArrayList<Edge>();
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.v1 = v1;
+        this.v2 = v2;
+        this.ac = ac;
+        this.distance = distance;
     }
     public void addEdge(Vertex endVertex, Double weight){
         this.edges.add(new Edge(this, endVertex, weight));
     }
 
-    public void removeEdge(Vertex endVertex){
-        this.edges.removeIf(edge -> edges.peekLast().equals(endVertex));
+    public double getDistance(Vertex v1, Vertex v2){
+        this.ac = Math.abs(v1.latitude - v2.latitude);
+        this.bc = Math.abs(v1.longitude - v2.longitude);
+        return Math.hypot(ac, bc);
     }
 
-    public String getID() {
-        return this.ID;
+    public void removeEdge(Vertex endVertex){
+        this.edges.removeIf(edge -> edges.getLast().equals(endVertex));
     }
-    public URLinkedList<Edge> getEdges() {
+
+    public String getData() {
+        return this.data;
+    }
+    public MyArrayList<Edge> getEdges() {
         return this.edges;
     }
 
     public void print(boolean showWeight) {
         String message = "";
 
-        if (this.edges.size() == 0) {
-            System.out.println(this.ID + " -->");
+        if (this.edges.size() == 0) { // changed this
+            System.out.println(this.data + " -->");
             return;
         }
 
         for(int i = 0; i < this.edges.size(); i++) {
             if (i == 0) {
-                message += this.edges.get(i).getStart().ID + " -->  ";
+                message += this.edges.get(i).getStart().data + " -->  ";
             }
 
-            message += this.edges.get(i).getEnd().ID;
+            message += this.edges.get(i).getEnd().data;
 
             if (showWeight) {
                 message += " (" + this.edges.get(i).getWeight() + ")";

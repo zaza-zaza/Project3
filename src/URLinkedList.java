@@ -13,7 +13,7 @@ public class URLinkedList<E> implements Iterable<E> {
 	
 	
 	// referencing the head and the tail of the linked list
-	private URNode<E> head;
+	public URNode<E> head;
 	private URNode<E> tail;
 	private URNode<E> n;
 	private URNode<E> p;
@@ -113,6 +113,7 @@ public class URLinkedList<E> implements Iterable<E> {
 			tail.setNext(newNode);
 			newNode.setPrev(tail);
 			tail = newNode;
+			return true; // added this
 		}
 	
 		return false;
@@ -252,7 +253,6 @@ public class URLinkedList<E> implements Iterable<E> {
 			}
 		}
 		
-		System.out.println("List contains " + o + ": " + contains);
 		return contains;
 	}
 	 
@@ -278,8 +278,11 @@ public class URLinkedList<E> implements Iterable<E> {
 				}
 			}
 		}
-		System.out.println("List contains all elements " + c + ": " + out);
 		return out;
+	}
+
+	public boolean equals() {
+		return equals(null);
 	}
 
 	public boolean equals(Object o) {
@@ -297,7 +300,6 @@ public class URLinkedList<E> implements Iterable<E> {
 			}
 		}
 		// returns the expected outcome
-		System.out.println(o + " equals: " + equals);
 		return false;
 	}
 	
@@ -348,8 +350,7 @@ public class URLinkedList<E> implements Iterable<E> {
 			empty = true;
 		}
 		// default outcome is false, returns true only if there are a head and tail containing data
-		System.out.println("List empty: " + empty);
-		
+
 		return false;
 	}
 	
@@ -714,7 +715,7 @@ class URNode<E> { // Doubly linked list node
 	URNode(E it, URNode<E> inp, URNode<E> inn) {
 		e = it; p = inp; n = inn;
 	}
-	URNode(URNode<E> inp, URNode<E> inn) { 
+	URNode(URNode<E> inp, URNode<E> inn) {
 		p = inp; n = inn;
 	}
 	// Get and set methods for the data members
@@ -727,7 +728,7 @@ class URNode<E> { // Doubly linked list node
 	public URNode<E> next() {
 		return n; 
 	} // Return next link
-	public URNode<E> setNext(URNode<E> nextval) { 
+	public URNode<E> setNext(URNode<E> nextval) {
 		return n = nextval; 
 	} // Set next link
 	public URNode<E> prev() {
