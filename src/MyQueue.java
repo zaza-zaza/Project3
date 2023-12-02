@@ -8,7 +8,7 @@ public class MyQueue<T> extends MyArrayList{
     }
 
     public void enqueue(T element) {
-        list.add(element);
+        list.add(0, element);
     }
 
     public T dequeue() {

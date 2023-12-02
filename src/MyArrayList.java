@@ -12,10 +12,19 @@ public class MyArrayList<T> implements Iterable<T> {
         this.size = 0;
     }
 
+    public T add(int i, T element) {
+        ensureCapacity();
+        elements[size++] = element;
+        return element;
+    }
     public T add(T element) {
         ensureCapacity();
         elements[size++] = element;
         return element;
+    }
+    public void add(int element) {
+        ensureCapacity();
+        elements[size++] = element;
     }
 
     @SuppressWarnings("unchecked")
@@ -127,9 +136,9 @@ public class MyArrayList<T> implements Iterable<T> {
     public static void main(String[] args) {
         MyArrayList<String> MyArrayList = new MyArrayList<>();
 
-        MyArrayList.add("Element 1");
-        MyArrayList.add("Element 2");
-        MyArrayList.add("Element 3");
+        MyArrayList.add(0, "Element 1");
+        MyArrayList.add(0, "Element 2");
+        MyArrayList.add(0, "Element 3");
 
         System.out.println("Size of MyArrayList: " + MyArrayList.size());
         System.out.println("Element at index 1: " + MyArrayList.get(1));

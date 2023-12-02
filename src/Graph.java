@@ -13,7 +13,7 @@ public class Graph {
 
     public Vertex addVertex(String data){
         Vertex newVertex = new Vertex(data);
-        this.vertices.add(newVertex);
+        this.vertices.add(0, newVertex);
         return newVertex;
     }
 

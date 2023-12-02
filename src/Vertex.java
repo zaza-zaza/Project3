@@ -1,5 +1,5 @@
 
-public class Vertex {
+public class Vertex{
 
     private String data;
     private MyArrayList<Edge> edges;
@@ -18,12 +18,19 @@ public class Vertex {
         this.distance = distance;
     }
     public void addEdge(Vertex endVertex, Double weight){
-        this.edges.add(new Edge(this, endVertex, weight));
+        this.edges.add(0, new Edge(this, endVertex, weight));
     }
 
-    public double getDistance(Vertex v1, Vertex v2){
-        this.ac = Math.abs(v1.latitude - v2.latitude);
-        this.bc = Math.abs(v1.longitude - v2.longitude);
+    public Double getLatitude(Double x) {
+        return x;
+    }
+    public Double getLongitude(Double y){
+        return y;
+    }
+
+    public double getDistance(Double v1, Double v2){
+        this.ac = Math.abs(v1 - v2);
+        this.bc = Math.abs(v1 - v2);
         return Math.hypot(ac, bc);
     }
 

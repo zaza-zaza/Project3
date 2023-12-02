@@ -10,7 +10,7 @@ public class GraphTraverser {
             Vertex neighbor = e.getEnd();
 
             if (!visited.contains(neighbor)) {
-                visited.add(neighbor);
+                visited.add(0, neighbor);
                 GraphTraverser.DFS(neighbor, visited);
             }
         }
@@ -28,7 +28,7 @@ public class GraphTraverser {
                 Vertex neighbor = e.getEnd();
 
                 if(!visited.contains(neighbor)){
-                    visited.add(neighbor);
+                    visited.add(0, neighbor);
                     visitedQ.enqueue(neighbor);
                 }
             }
@@ -42,8 +42,8 @@ public class GraphTraverser {
         Vertex startingVertex = test.getStartingVertex();
         MyArrayList<Vertex> visitedVertices1 = new MyArrayList<Vertex>();
         MyArrayList<Vertex> visitedVertices2 = new MyArrayList<Vertex>();
-        visitedVertices1.add(startingVertex);
-        visitedVertices2.add(startingVertex);
+        visitedVertices1.add(0, startingVertex);
+        visitedVertices2.add(0, startingVertex);
         System.out.println("DFS:");
         GraphTraverser.DFS(startingVertex, visitedVertices1);
         System.out.println("BFS:");
