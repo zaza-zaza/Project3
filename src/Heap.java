@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 /**
  * @author Zachary Garson
  * zgarson@u.rochester.edu
@@ -18,7 +20,27 @@ public class Heap<T extends Comparable<T>> implements UR_Heap<T> {
 		heapSize = 0;
 		position = -1;
 	}
-	
+	private int enumerationCursor = 0;
+
+	// Implementing Enumeration methods
+
+	public boolean hasMoreElements() {
+		return enumerationCursor < heapSize;
+	}
+
+
+	public T nextElement() {
+		if (!hasMoreElements()) {
+			throw new NoSuchElementException("No more elements in the heap");
+		}
+		return heap[enumerationCursor++];
+	}
+
+	// Additional methods for resetting enumeration
+	public void resetEnumeration() {
+		enumerationCursor = 0;
+	}
+
 	@Override
 	public void insert(T item) {
 		if(heapSize == heap.length) {
@@ -75,38 +97,47 @@ public class Heap<T extends Comparable<T>> implements UR_Heap<T> {
 		if(isEmpty()) {
 			throw new IllegalArgumentException("Heap is empty.");
 		} else {
+			T minElement = heap[0];
 			heap[0] = heap[heapSize - 1];
 			heapSize--;
 			if(heapSize > 0) {
 				bubbleDown();
 			}
+			return minElement;
 		}
-		return null;
-	}
+
+    }
 
 	private void bubbleDown() {
-		int size = heap.length - 1;
 		int childIndex = 2 * position + 1;
 		T value = heap[position];
-		while(childIndex < size) {
-			
-			T maxVal = value;
-			int maxInd = -1;
-			for(int i = 0; i < 2 && i + childIndex < size; i++) {
-				if(heap[i + childIndex].compareTo(maxVal) < 0) {
-					maxVal = heap[i + childIndex];
-					maxInd = i + childIndex;
+
+		while (childIndex < heapSize) {
+			T minChild = heap[childIndex];
+			int minChildIndex = childIndex;
+
+			// Find the minimum child
+			for (int i = 1; i <= 2 && i + childIndex < heapSize; i++) {
+				if (heap[i + childIndex].compareTo(minChild) < 0) {
+					minChild = heap[i + childIndex];
+					minChildIndex = i + childIndex;
 				}
 			}
-			if(maxVal == value) return;
-			else {
-				swap (position, maxInd);
-				position = maxInd;
-				childIndex = 2 * position + 1;
+
+			// Check if the minimum child is greater than or equal to the value
+			if (minChild.compareTo(value) >= 0) {
+				break;
 			}
-			
+
+			// Swap with the minimum child
+			swap(position, minChildIndex);
+			position = minChildIndex;
+
+			// Update childIndex for the next iteration
+			childIndex = 2 * position + 1;
 		}
 	}
+
 
 	// returns the root of the heap
 	public T getRoot() {

@@ -1,5 +1,5 @@
 
-public class Graph {
+public class Graph { // graph class adapted from: https://www.youtube.com/watch?v=dS44jZyj5gU&ab_channel=freeCodeCamp.org
 
     private MyArrayList<Vertex> vertices;
     private boolean isWeighted;

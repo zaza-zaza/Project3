@@ -1,4 +1,4 @@
-public class Edge {
+public class Edge { // Edge class adapted from https://www.youtube.com/watch?v=dS44jZyj5gU&ab_channel=freeCodeCamp.org
 
     private Vertex start;
     private Vertex end;

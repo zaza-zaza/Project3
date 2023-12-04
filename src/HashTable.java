@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * @author Zachary Garson
@@ -160,6 +158,11 @@ public class HashTable<Key, Value> extends UR_HashTable<Key, Value> implements I
 				return key;
 			}
 		};
+	}
+
+	@Override
+	public void forEach(Consumer<? super Key> action) {
+		Iterable.super.forEach(action);
 	}
 
 	public static class Entry<Key, Value> {

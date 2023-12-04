@@ -1,5 +1,5 @@
 
-public class Vertex{
+public class Vertex { // vertex class adapted from: https://www.youtube.com/watch?v=dS44jZyj5gU&ab_channel=freeCodeCamp.org
 
     private String data;
     private MyArrayList<Edge> edges;
@@ -28,9 +28,9 @@ public class Vertex{
         return y;
     }
 
-    public double getDistance(Double v1, Double v2){
-        this.ac = Math.abs(v1 - v2);
-        this.bc = Math.abs(v1 - v2);
+    public double getDistance(Double x1, Double x2, Double y1, Double y2){
+        this.ac = Math.abs(x1 - x2);
+        this.bc = Math.abs(y1 - y2);
         return Math.hypot(ac, bc);
     }
 
