@@ -21,11 +21,11 @@ public class Vertex { // vertex class adapted from: https://www.youtube.com/watc
         this.edges.add(0, new Edge(this, endVertex, weight));
     }
 
-    public Double getLatitude(Double x) {
-        return x;
+    public Double getLatitude() {
+        return latitude;
     }
-    public Double getLongitude(Double y){
-        return y;
+    public Double getLongitude(){
+        return longitude;
     }
 
     public double getDistance(Double x1, Double x2, Double y1, Double y2){
@@ -69,5 +69,13 @@ public class Vertex { // vertex class adapted from: https://www.youtube.com/watc
             }
         }
         System.out.println(message);
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 }

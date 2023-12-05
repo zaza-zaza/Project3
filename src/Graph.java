@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Graph { // graph class adapted from: https://www.youtube.com/watch?v=dS44jZyj5gU&ab_channel=freeCodeCamp.org
 
@@ -62,6 +65,48 @@ public class Graph { // graph class adapted from: https://www.youtube.com/watch?
         }
     }
 
+    public static Graph loadGraphFromFile(String filePath) {
+        Graph graph = new Graph(true, false);
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("\t");
+                if (parts[0].equals("i")) {
+                    // It's a vertex entry
+                    String vertexName = parts[1];
+                    double latitude = Double.parseDouble(parts[2]);
+                    double longitude = Double.parseDouble(parts[3]);
+
+                    Vertex vertex = graph.addVertex(vertexName);
+                    // Assuming you have latitude and longitude properties in your Vertex class
+                    vertex.setLatitude(latitude);
+                    vertex.setLongitude(longitude);
+                } else if (parts[0].equals("r")) {
+                    // It's an edge entry
+                    String edgeName = parts[1];
+                    Vertex v1 = graph.getVertexByValue(parts[2]);
+                    Vertex v2 = graph.getVertexByValue(parts[3]);
+
+                    if (v1 != null && v2 != null) {
+                        // Calculate distance and add edges
+                        double weight = v1.getDistance(v1.getLongitude(), v2.getLongitude(), v1.getLatitude(), v2.getLatitude());
+                        graph.addEdge(v1, v2, weight);
+                        // Since it's an undirected graph, add the reverse edge as well
+                        graph.addEdge(v2, v1, weight);
+                    } else {
+                        System.out.println("Error: Vertices not found for edge.");
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return graph;
+    }
+
+
     public static void main(String[] args){
         Graph g = new Graph(true, false);
         Vertex cliftonStation = g.addVertex("Clifton");
@@ -89,4 +134,6 @@ public class Graph { // graph class adapted from: https://www.youtube.com/watch?
 
         g.print();
     }
+
+
 }

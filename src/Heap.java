@@ -16,7 +16,7 @@ public class Heap<T extends Comparable<T>> implements UR_Heap<T> {
 	protected int position;
 	
 	public Heap() {
-		heap = (T[]) new Comparable[10];
+		heap = (T[]) new Comparable[10000];
 		heapSize = 0;
 		position = -1;
 	}
