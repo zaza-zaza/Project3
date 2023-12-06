@@ -4,17 +4,37 @@ public class Vertex { // vertex class adapted from: https://www.youtube.com/watc
     private String data;
     private MyArrayList<Edge> edges;
     protected Vertex v1, v2;
-    protected Double distance, ac, bc, longitude, latitude;
+    protected Double distance, ac, bc, longitude, latitude, x1, y1, x2, y2;
 
 
-    public Vertex(String name){
+    public double getX1() {
+        return x1;
+    }
+
+    public double getY1() {
+        return y1;
+    }
+
+    public double getX2() {
+        return x2;
+    }
+
+    public double getY2() {
+        return y2;
+    }
+
+    public Vertex(String name, double latitude, double longitude){
         this.data = name;
         this.edges = new MyArrayList<Edge>();
-        this.longitude = longitude;
         this.latitude = latitude;
+        this.longitude = longitude;
         this.v1 = v1;
         this.v2 = v2;
         this.ac = ac;
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
         this.distance = distance;
     }
     public void addEdge(Vertex endVertex, Double weight){
@@ -28,7 +48,7 @@ public class Vertex { // vertex class adapted from: https://www.youtube.com/watc
         return longitude;
     }
 
-    public double getDistance(Double x1, Double x2, Double y1, Double y2){
+    public double getDistance(double x1, double x2, double y1, double y2){
         this.ac = Math.abs(x1 - x2);
         this.bc = Math.abs(y1 - y2);
         return Math.hypot(ac, bc);

@@ -14,8 +14,8 @@ public class Graph { // graph class adapted from: https://www.youtube.com/watch?
         this.isDirected = inputIsDirected;
     }
 
-    public Vertex addVertex(String data){
-        Vertex newVertex = new Vertex(data);
+    public Vertex addVertex(String data, double x, double y){
+        Vertex newVertex = new Vertex(data, x, y);
         this.vertices.add(0, newVertex);
         return newVertex;
     }
@@ -78,10 +78,8 @@ public class Graph { // graph class adapted from: https://www.youtube.com/watch?
                     double latitude = Double.parseDouble(parts[2]);
                     double longitude = Double.parseDouble(parts[3]);
 
-                    Vertex vertex = graph.addVertex(vertexName);
-                    // Assuming you have latitude and longitude properties in your Vertex class
-                    vertex.setLatitude(latitude);
-                    vertex.setLongitude(longitude);
+                    Vertex vertex = graph.addVertex(vertexName, latitude, longitude);
+
                 } else if (parts[0].equals("r")) {
                     // It's an edge entry
                     String edgeName = parts[1];
@@ -108,31 +106,31 @@ public class Graph { // graph class adapted from: https://www.youtube.com/watch?
 
 
     public static void main(String[] args){
-        Graph g = new Graph(true, false);
-        Vertex cliftonStation = g.addVertex("Clifton");
-        Vertex capeMayStation = g.addVertex("Cape May");
-        Vertex a = g.addVertex("a");
-        Vertex b = g.addVertex("c");
-        Vertex c = g.addVertex("d");
-        Vertex d = g.addVertex("e");
-        Vertex e = g.addVertex("f");
-        Vertex f = g.addVertex("g");
-        Vertex h = g.addVertex("h");
-        Vertex i = g.addVertex("i");
-        Vertex j = g.addVertex("j");
-        Vertex k = g.addVertex("k");
-        Vertex l = g.addVertex("l");
-        Vertex m = g.addVertex("m");
-
-        g.addEdge(cliftonStation, capeMayStation, 1000.0);
-        g.addEdge(a,b, 2.0);
-        g.addEdge(b,c, 3.0);
-        g.addEdge(c,d, 4.0);
-        g.addEdge(d,e, 2.0);
-        g.addEdge(e,f, 5.0);
-        g.addEdge(f,h, 3.0);
-
-        g.print();
+//        Graph g = new Graph(true, false);
+//        Vertex cliftonStation = g.addVertex("Clifton");
+//        Vertex capeMayStation = g.addVertex("Cape May");
+//        Vertex a = g.addVertex("a");
+//        Vertex b = g.addVertex("c");
+//        Vertex c = g.addVertex("d");
+//        Vertex d = g.addVertex("e");
+//        Vertex e = g.addVertex("f");
+//        Vertex f = g.addVertex("g");
+//        Vertex h = g.addVertex("h");
+//        Vertex i = g.addVertex("i");
+//        Vertex j = g.addVertex("j");
+//        Vertex k = g.addVertex("k");
+//        Vertex l = g.addVertex("l");
+//        Vertex m = g.addVertex("m");
+//
+//        g.addEdge(cliftonStation, capeMayStation, 1000.0);
+//        g.addEdge(a,b, 2.0);
+//        g.addEdge(b,c, 3.0);
+//        g.addEdge(c,d, 4.0);
+//        g.addEdge(d,e, 2.0);
+//        g.addEdge(e,f, 5.0);
+//        g.addEdge(f,h, 3.0);
+//
+//        g.print();
     }
 
 
