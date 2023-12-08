@@ -52,11 +52,14 @@ public class Test {
             e.printStackTrace();
         }
 
-        Vertex a = new Vertex("a", 500.0, 500.0);
+//        Vertex a = new Vertex("a", 500.0, 500.0);
 //        Vertex b = new Vertex("b", 30.0, -100.0);
-
-//        vertices.add(b);
+//
+//        vertices.add(a);
         SwingUtilities.invokeLater(() -> new Map(vertices));
-//        Dijkstra.shortestPath(graph, vertices.get(0), vertices.get(1));
+        for(Vertex v : vertices){
+            System.out.println(v.getLatitude() + " " + v.getLongitude());
+        }
+        Dijkstra.shortestPath(graph, vertices.get(0), vertices.get(50));
     }
 }

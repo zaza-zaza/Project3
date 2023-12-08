@@ -7,6 +7,9 @@ import java.awt.geom.Point2D;
 public class Map extends JFrame {
 
     private MyArrayList<Vertex> vertices;
+    private int width, height;
+
+    double x1,x2,y1,y2;
 
     public Map (MyArrayList<Vertex> vertices){
         this.vertices = vertices;
@@ -19,45 +22,33 @@ public class Map extends JFrame {
 
     private void drawGraph(Graphics2D g2d){
 
-        double minX = Double.MAX_VALUE;
-        double minY = Double.MAX_VALUE;
-
-        for(Vertex v : vertices){
-            minX = Math.min(minX, v.getLatitude());
-            minY = Math.min(minY, v.getLongitude());
-        }
-
-        int translateX = (int) (200);
-        int translateY = (int) (200);
-
-        g2d.translate(translateX, translateY);
 
         for(int i = 0; i < vertices.size() - 1; i++){
-            drawEdge(g2d, vertices.get(i), vertices.get(i + 1), minX, minY);
+            drawEdge(g2d, vertices.get(i), vertices.get(i + 1));
         }
 
         for(int i = 0; i < vertices.size(); i++){
-            drawVertex(g2d, vertices.get(i), minX, minY);
+            drawVertex(g2d, vertices.get(i));
         }
 
     }
 
-    private void drawEdge(Graphics2D g2d, Vertex v1, Vertex v2, double minX, double minY){
+    private void drawEdge(Graphics2D g2d, Vertex v1, Vertex v2){
 
-        double x1 = (v1.getLatitude() - minX);
-        double y1 = (v1.getLongitude() - minY);
-        double x2 = (v2.getLatitude() - minX);
-        double y2 = (v2.getLongitude() - minY);
+        double x1 = 1000 - (v1.getLatitude());
+        double y1 = 1000 - (v1.getLongitude());
+        double x2 = 1000 - (v2.getLatitude());
+        double y2 = 1000 - (v2.getLongitude());
 
         Line2D.Double l = new Line2D.Double(x1, y1, x2, y2);
         g2d.draw(l);
     }
 
-    private void drawVertex(Graphics2D g2d, Vertex v, double minX, double minY){
+    private void drawVertex(Graphics2D g2d, Vertex v){
         g2d.setColor(Color.BLUE);
 
-        double x = (v.getLatitude() - minX);
-        double y = (v.getLongitude() - minY);
+        double x = 1000 - (v.getLatitude());
+        double y = 1000 - (v.getLongitude());
 
 
         Ellipse2D.Double point = new Ellipse2D.Double(x - 5,
@@ -74,10 +65,10 @@ public class Map extends JFrame {
 
     public static void main(String[] args){
         MyArrayList<Vertex> vList = new MyArrayList<>();
-        Vertex a = new Vertex("a", 10.1, -300.0);
-        Vertex b = new Vertex("b", 30.0, -100.0);
-        Vertex c = new Vertex("c", 300.0, -50.0);
-        Vertex d = new Vertex("d", 30.0, -500.0);
+        Vertex a = new Vertex("a", 10.1, 300.0);
+        Vertex b = new Vertex("b", 30.0, 100.0);
+        Vertex c = new Vertex("c", 300.0, 50.0);
+        Vertex d = new Vertex("d", 30.0, 500.0);
 
 
         vList.add(a);
