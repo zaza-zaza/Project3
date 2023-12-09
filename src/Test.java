@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Scanner;
@@ -17,7 +18,7 @@ public class Test {
 
         Graph graph = new Graph(true, false);
         MyArrayList<Vertex> vertices = new MyArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("src/ur.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("ur.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\t");
@@ -60,6 +61,11 @@ public class Test {
         for(Vertex v : vertices){
             System.out.println(v.getLatitude() + " " + v.getLongitude());
         }
+
+
+
+
+
         Dijkstra.shortestPath(graph, vertices.get(0), vertices.get(50));
     }
 }
