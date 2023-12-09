@@ -73,7 +73,7 @@ public class Test {
 //            }
 //            endIndex++;
 
-        Dijkstra.shortestPath(graph, vertices.get(0), vertices.get(1));
+        Dijkstra.shortestPath(graph, vertices.get(0), vertices.get(9));
 
 
 
