@@ -16,9 +16,13 @@ public class Heap<T extends Comparable<T>> implements UR_Heap<T> {
 	protected int position;
 	
 	public Heap() {
-		heap = (T[]) new Comparable[10000];
+		heap = (T[]) new Comparable[10];
 		heapSize = 0;
 		position = -1;
+	}
+	// resizes the array if it is full
+	private void resize (int cap) {
+		System.arraycopy(heap, 0, heap = (T[]) new Comparable[cap], 0, position + 1);
 	}
 	private int enumerationCursor = 0;
 
@@ -43,20 +47,23 @@ public class Heap<T extends Comparable<T>> implements UR_Heap<T> {
 
 	@Override
 	public void insert(T item) {
-		if(heapSize == heap.length) {
-			throw new IllegalArgumentException("Heap is full");
-		} else {
-			heapSize++;
-			position++;
-			heap[heapSize - 1] = item;
-			bubbleUp(heapSize - 1);
+
+		try {
+			if (heapSize == heap.length - 1) {
+				resize(2 * heap.length);
+				throw new IllegalArgumentException("Heap is full");
+			} else {
+				heapSize++;
+				position++;
+				heap[heapSize - 1] = item;
+				bubbleUp(heapSize - 1);
+			}
+		} catch (IndexOutOfBoundsException e){
+			e.getMessage();
+		} finally{
+			resize(1 + heap.length);
 		}
 	}
-	
-	// resizes the array if it is full
-//	private void resize (int cap) {
-//		System.arraycopy(heap, 0, heap = (T[]) new Comparable[cap], 0, position + 1);
-//	}
 	
 	private void bubbleUp(int index){
 		int parentIndex = 0;

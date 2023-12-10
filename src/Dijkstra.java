@@ -15,7 +15,7 @@ public class Dijkstra{
             if(!v.equals(startV)){
                 dist.put(v.getData(), Double.MAX_VALUE);
             }
-            prev.put(v.getData(), new Vertex("Null"));
+            prev.put(v.getData(), new Vertex("Null", 0, 0));
         }
 
         dist.put(startV.getData(), 0.0);
@@ -52,15 +52,16 @@ public class Dijkstra{
 
     }
 
-    public static void shortestPath(Graph g, Vertex startV, Vertex dest){
+    public static void shortestPath(Graph g, Vertex startV, Vertex dest, boolean showDirections){
         HashTable[] dijkstraTable = dijkstra(g, startV);
         HashTable dist = dijkstraTable[0];
         HashTable prev = dijkstraTable[1];
 
         Double dDist = (Double) dist.get(dest.getData());
-        System.out.println("Shortest distance between " + startV.getData() + " and " + dest.getData() + ":");
-        System.out.println(dDist);
-
+        if(showDirections) {
+            System.out.println("Shortest distance between " + startV.getData() + " and " + dest.getData() + ":");
+            System.out.println(dDist + " meters.");
+        }
         MyArrayList<Vertex> shortPath = new MyArrayList<>();
         Vertex v = dest;
 
@@ -68,34 +69,12 @@ public class Dijkstra{
             shortPath.add(0, v);
             v = (Vertex) prev.get(v.getData());
         }
-        System.out.println("Shortest path: ");
-        for(Vertex pathV : shortPath){
-            System.out.println(pathV.getData());
+
+        if(showDirections) {
+            System.out.println("Shortest path: ");
+            for (Vertex pathV : shortPath) {
+                System.out.println(pathV.getData());
+            }
         }
-    }
-
-    public static void main(String[] args){
-
-        Graph testGraph = new Graph(true, true);
-        Vertex a = testGraph.addVertex("A");
-        Vertex b = testGraph.addVertex("B");
-        Vertex c = testGraph.addVertex("C");
-        Vertex d = testGraph.addVertex("D");
-        Vertex e = testGraph.addVertex("E");
-        Vertex f = testGraph.addVertex("F");
-        Vertex g = testGraph.addVertex("G");
-
-        testGraph.addEdge(a, c, 100.0);
-        testGraph.addEdge(a, b, 3.0);
-        testGraph.addEdge(a, d, 4.0);
-        testGraph.addEdge(d, c, 3.0);
-        testGraph.addEdge(d, e, 8.0);
-        testGraph.addEdge(e, b, 2.0);
-        testGraph.addEdge(e, f, 10.0);
-        testGraph.addEdge(b, g, 9.0);
-        testGraph.addEdge(e, g, 50.0);
-
-        Dijkstra.pathPrinter(dijkstra(testGraph, a));
-        shortestPath(testGraph, a, g);
     }
 }

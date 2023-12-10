@@ -35,19 +35,4 @@ public class GraphTraverser {
         }
     }
 
-    public static void main(String[] args){
-
-        // delete this later
-        TestGraph test = new TestGraph();
-        Vertex startingVertex = test.getStartingVertex();
-        MyArrayList<Vertex> visitedVertices1 = new MyArrayList<Vertex>();
-        MyArrayList<Vertex> visitedVertices2 = new MyArrayList<Vertex>();
-        visitedVertices1.add(0, startingVertex);
-        visitedVertices2.add(0, startingVertex);
-        System.out.println("DFS:");
-        GraphTraverser.DFS(startingVertex, visitedVertices1);
-        System.out.println("BFS:");
-        GraphTraverser.BFS(startingVertex, visitedVertices2);
-
-    }
 }
