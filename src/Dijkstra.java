@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.PriorityQueue;
 
 public class Dijkstra{
 
@@ -7,7 +8,7 @@ public class Dijkstra{
         HashTable<String, Vertex> prev = new HashTable<>();
         PriorityQueue<Comparer> pq = new PriorityQueue<>();
 
-        pq.insert(new Comparer(startV, 0.0));
+        pq.add(new Comparer(startV, 0.0));
 
         // iterate through table and assign 0 or infinity to each value
 
@@ -21,14 +22,14 @@ public class Dijkstra{
         dist.put(startV.getData(), 0.0);
 
         while(pq.size() != 0){
-            Vertex current = pq.deleteMin().v;
+            Vertex current = pq.poll().v;
             for(Edge e : current.getEdges()){
                 Double alt = dist.get(current.getData()) + e.getWeight();
                 String neighbor = e.getEnd().getData();
                 if(alt < dist.get(neighbor)){
                     dist.put(neighbor, alt);
                     prev.put(neighbor, current);
-                    pq.insert(new Comparer(e.getEnd(), dist.get(neighbor)));
+                    pq.add(new Comparer(e.getEnd(), dist.get(neighbor)));
                 }
             }
         }
