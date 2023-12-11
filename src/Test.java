@@ -1,12 +1,16 @@
 import javax.swing.*;
 import java.io.BufferedReader;
-import java.io.File;
+
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.PriorityQueue;
-import java.util.Scanner;
 
+
+/**
+ * @author Zachary Garson
+ * zgarson@u.rochester.edu
+ * 12/10/23
+ * Project 3
+ */
 public class Test {
     static boolean show, showDirections = false;
     public static String file, startVertex, endVertex;
@@ -71,12 +75,36 @@ public class Test {
             e.printStackTrace();
         }
 
+        double minLon = vertices.get(0).getLongitude();
+        for(int i = 0; i < vertices.size(); i++){
+            if(vertices.get(i).getLongitude() < minLon){
+                minLon = vertices.get(i).getLongitude();
+            }
+        }
+        double maxLon = vertices.get(0).getLongitude();
+        for(int i = 0; i < vertices.size(); i++){
+            if(vertices.get(i).getLongitude() > minLon){
+                maxLon = vertices.get(i).getLongitude();
+            }
+        }
+        double minLat = vertices.get(0).getLatitude();
+        for(int i = 0; i < vertices.size(); i++){
+            if(vertices.get(i).getLongitude() < minLat){
+                minLat = vertices.get(i).getLongitude();
+            }
+        }
+        double maxLat = vertices.get(0).getLatitude();
+        for(int i = 0; i < vertices.size(); i++){
+            if(vertices.get(i).getLongitude() > maxLat){
+                maxLat = vertices.get(i).getLongitude();
+            }
+        }
         Dijkstra.shortestPath(graph, graph.getVertexByValue(startVertex), graph.getVertexByValue(endVertex), showDirections);
         JFrame frame = new JFrame();
         frame.setSize(1000, 1000);
         frame.setTitle("Map of " + file);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Map2 map = new Map2(graph);
+        Map map = new Map(vertices, minLat, maxLat, minLon, maxLon);
         frame.add(map);
         frame.setVisible(show);
     }

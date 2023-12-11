@@ -64,42 +64,7 @@ public class Graph { // graph class adapted from: https://www.youtube.com/watch?
         }
     }
 
-    public double getMinLat (){
-        double min = this.vertices.get(0).getLatitude();
-        for(Vertex v :vertices){
-            if(min > v.getLatitude()){
-                min = v.getLatitude();
-            }
-        }
-        return min;
-    }
-    public double getMinLon (){
-        double min = this.vertices.get(0).getLongitude();
-        for(Vertex v :vertices){
-            if(min > v.getLongitude()){
-                min = v.getLongitude();
-            }
-        }
-        return min;
-    }
-    public double getMaxLat (){
-        double max = this.vertices.get(0).getLatitude();
-        for(Vertex v :vertices){
-            if(max < v.getLatitude()){
-                max = v.getLatitude();
-            }
-        }
-        return max;
-    }
-    public double getMaxLon (){
-        double max = this.vertices.get(0).getLatitude();
-        for(Vertex v :vertices){
-            if(max < v.getLatitude()){
-                max = v.getLatitude();
-            }
-        }
-        return max;
-    }
+
 
 
 }

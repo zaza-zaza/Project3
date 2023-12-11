@@ -1,5 +1,12 @@
 import java.util.Objects;
 
+/**
+ * @author Zachary Garson
+ * zgarson@u.rochester.edu
+ * 12/10/23
+ * Project 3
+ */
+// comparable class
 public class Comparer implements Comparable<Comparer> {
 
     public Vertex v;

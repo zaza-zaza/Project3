@@ -1,6 +1,12 @@
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
+/**
+ * @author Zachary Garson
+ * zgarson@u.rochester.edu
+ * 12/10/23
+ * Project 3
+ */
 public class Dijkstra{
 
     public static HashTable[] dijkstra(Graph g, Vertex startV){
@@ -21,6 +27,7 @@ public class Dijkstra{
 
         dist.put(startV.getData(), 0.0);
 
+        // find the shortest path so long as there are values in the queue
         while(pq.size() != 0){
             Vertex current = pq.poll().v;
             for(Edge e : current.getEdges()){
@@ -40,6 +47,7 @@ public class Dijkstra{
     public static void pathPrinter(HashTable[] table){
         System.out.println("Distances:");
 
+        // iterates through and prints each path along the way
         for(Iterator keys = table[0].keys().iterator(); keys.hasNext();){
             String nextKey = keys.next().toString();
             System.out.println(nextKey + ": " + table[0].get(nextKey));
@@ -53,11 +61,13 @@ public class Dijkstra{
 
     }
 
+
     public static void shortestPath(Graph g, Vertex startV, Vertex dest, boolean showDirections){
         HashTable[] dijkstraTable = dijkstra(g, startV);
         HashTable dist = dijkstraTable[0];
         HashTable prev = dijkstraTable[1];
 
+        // returns the shortest
         Double dDist = (Double) dist.get(dest.getData());
         if(showDirections) {
             System.out.println("Shortest distance between " + startV.getData() + " and " + dest.getData() + ":");
@@ -66,11 +76,13 @@ public class Dijkstra{
         MyArrayList<Vertex> shortPath = new MyArrayList<>();
         Vertex v = dest;
 
+        // store array of the roads along the shortest path
         while(v.getData() != "Null"){
             shortPath.add(0, v);
             v = (Vertex) prev.get(v.getData());
         }
 
+        // if "--directions" print the shortest path
         if(showDirections) {
             System.out.println("Shortest path: ");
             for (Vertex pathV : shortPath) {

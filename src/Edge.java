@@ -4,6 +4,7 @@ public class Edge { // Edge class adapted from https://www.youtube.com/watch?v=d
     private Vertex end;
     private Double weight;
 
+    // store the vertices with the weight
     public Edge(Vertex startV, Vertex endV, Double weight){
         this.start = startV;
         this.end = endV;

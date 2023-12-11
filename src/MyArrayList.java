@@ -1,6 +1,14 @@
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.Predicate;
+
+/**
+ * @author Zachary Garson
+ * zgarson@u.rochester.edu
+ * 12/10/23
+ * Project 3
+ */
+// created an arraylist class from scratch for the purposes of this project
 public class MyArrayList<T> implements Iterable<T> {
 
     private static final int DEFAULT_CAPACITY = 10;

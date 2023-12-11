@@ -1,101 +1,83 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-
-public class Map extends JFrame {
-
-    private MyArrayList<Vertex> coordinates; // Latitude and longitude coordinates
-
-    public Map(MyArrayList<Vertex> coordinates) {
-        super("GeoGraph Drawer");
-
-        this.coordinates = coordinates;
-
-        int w = 900;
-        int h = 900;
 
 
-        // Set up the frame
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 1000);
-        setLocationRelativeTo(null);
-        setVisible(true);
+/**
+ * @author Zachary Garson
+ * zgarson@u.rochester.edu
+ * 12/10/23
+ * Project 3
+ */
+public class Map extends JComponent {
+
+    public static MyArrayList<Vertex> vertices; // Latitude and longitude coordinates
+    double minLat, minLon, maxLat, maxLon;
+    double domain, range;
+
+
+
+    public Map(MyArrayList<Vertex> vertices, double minLat, double maxLat, double minLon, double maxLon ){
+        this.vertices = new MyArrayList<>();
+        this.minLat = minLat;
+        this.minLon = minLon;
+        this.maxLat = maxLat;
+        this.maxLon = maxLon;
     }
 
-    private void drawGeoGraph(Graphics2D g2d) {
-        // Draw edges
-        for (int i = 0; i < coordinates.size() - 1; i++) {
-            Vertex v1 = coordinates.get(i);
-            Vertex v2 = coordinates.get(i + 1);
 
-            // Draw edge between coordinates i and i + 1
-            drawEdge(g2d, v1, v2);
+    public void paintComponent(Graphics g){
+        domain = maxLat - minLat;
+        range = maxLon - minLon;
+
+        for(int i = 0; i < vertices.size(); i++){
+            g.setColor(Color.BLACK);
+            double x1 = this.getHeight() - ((this.getHeight() * (vertices.get(i).getLatitude() - minLat)));
+            double y1 = ((this.getWidth()) * (vertices.get(i).getLatitude() - minLon)) / domain;
+            double x2 = this.getHeight() - ((this.getHeight() * (vertices.get(i + 1).getLatitude() - minLat)));
+            double y2 = ((this.getWidth()) * (vertices.get(i + 1).getLatitude() - minLon)) / domain;
+            g.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
         }
 
-        // Draw vertices
-//        for (Vertex coordinate : coordinates) {
-//            // Draw vertex at the coordinate
-//            drawVertex(g2d, coordinate);
-//        }
     }
 
-    private void drawEdge(Graphics2D g2d, Vertex v1, Vertex v2) {
-        g2d.setColor(Color.BLACK);
+    public static void main(String[] args){
+        MyArrayList<Vertex> vertex = new MyArrayList<>();
+        vertex.add(new Vertex("a", 100, 5));
+        vertex.add(new Vertex("b", 1, 2));
 
-        // Assuming simple scaling for illustration purposes
-//        int x1 = (int) (coord1.getX() * 1);
-//        int y1 = (int) (coord1.getY() * 1);
-//        int x2 = (int) (coord2.getX() * 1);
-//        int y2 = (int) (coord2.getY() * 1);
+        // getting the min and max for lon and lat
+        double minLon = vertex.get(0).getLongitude();
+        for(int i = 0; i < vertex.size(); i++){
+            if(vertex.get(i).getLongitude() < minLon){
+                minLon = vertex.get(i).getLongitude();
+            }
+        }
+        double maxLon = vertex.get(0).getLongitude();
+        for(int i = 0; i < vertex.size(); i++){
+            if(vertex.get(i).getLongitude() > minLon){
+                maxLon = vertex.get(i).getLongitude();
+            }
+        }
+        double minLat = vertex.get(0).getLatitude();
+        for(int i = 0; i < vertex.size(); i++){
+            if(vertex.get(i).getLongitude() < minLat){
+                minLat = vertex.get(i).getLongitude();
+            }
+        }
+        double maxLat = vertex.get(0).getLatitude();
+        for(int i = 0; i < vertex.size(); i++){
+            if(vertex.get(i).getLongitude() > maxLat){
+                maxLat = vertex.get(i).getLongitude();
+            }
+        }
 
-//        double scaleX = w / (v2.getLatitude() - v1.getLongitude());
-        double x1 = v1.getX() / 10000;
-        double y1 = v1.getY() / 10000;
-        double x2 = v2.getX() / 10000 ;
-        double y2 = v2.getY() / 10000;
-
-        Line2D.Double l = new Line2D.Double(x1, y1, x2, y2);
-        g2d.draw(l);
-//        g2d.drawLine(x1, y1, x2, y2);
-    }
-
-    private void drawVertex(Graphics2D g2d, Vertex coordinate) {
-        g2d.setColor(Color.BLUE);
-
-        // Assuming simple scaling for illustration purposes
-
-        double x = coordinate.getLatitude();
-        double y = coordinate.getLongitude();
-        // Draw a circle to represent the vertex
-        Ellipse2D.Double ellipse = new Ellipse2D.Double(x - 5, y - 5, 10, 10);
-        g2d.fill(ellipse);
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        super.paint(g);
-        g2d.translate(0, 200);
-        drawGeoGraph(g2d);
-    }
-
-    public static void main(String[] args) {
-        // Example coordinates for a simple geographical graph
-        MyArrayList<Vertex> coordinates = new MyArrayList<>();
-//        Vertex a = new Vertex("a", 43.129807, 77.62742);
-//        coordinates.add(a);
-//        coordinates.add(new Vertex("b", 43.12966, 77.628598));
-        coordinates.add(new Vertex("c", 43.130478, 77.626726));
-        coordinates.add(new Vertex("d",43.131081, 77.62623));
-        coordinates.add(new Vertex("e", 43.131338, 77.625693));
-        coordinates.add(new Vertex("f", 100.0, 200.0));
-
-//        System.out.println(a.getX());
-
-        SwingUtilities.invokeLater(() -> new Map(coordinates));
-
+        JFrame frame = new JFrame();
+        Map map = new Map(vertex, minLat, maxLat, minLon, maxLon);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(900, 900);
+        frame.setVisible(true);
 
     }
+
+
 }

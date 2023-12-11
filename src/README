@@ -1,0 +1,43 @@
+/**
+ * @author Zachary Garson
+ * zgarson@u.rochester.edu
+ * 12/10/23
+ * Project 3
+ */
+
+ This project uses implements Dijkstra's shortest path
+ algorithm to find the shortest distance from one vertex
+ in a graph to another. In order to utilize Dijkstra's
+ algorithm I needed to implement a weighted graph data
+ structure that could properly store the data from the text
+ files. One of the hardest challenges I am faced with
+ taking the data from the text files and transferring
+ the data into a visual representation of the
+ coordinates. I have done a lot of tweaking with the
+ graphics and I have seen my program draw input that I
+ gave it. The problem for me was that finding the map is
+ like finding a needle in a hay-stack. The distances
+ between the points were un-noticable. I attempted to
+ scale the points but that was not successful. In terms
+ of run-time analysis I notice that when I switch to the
+ larger files the run-time get longer. I beleive
+ that some parts of my code may run O(x^2) and even
+ O(x^3) because there are many implementations of for
+ loops in the code. This I believe is why the run-time 
+ increases with the larger text files.
+
+ Here is the list of file I included:
+
+ Comparer.java, Dijkstra.java, Edge.java, Graph.java,
+ HashTable.java, Map.java, MyArrayList.java,
+ README.txt, UR_HashTable.java, UR_Heap.java,
+ URLinkedList.java, URList.java, OUTPUT.txt, and 
+ Vertex.java
+
+ Things I think I deserve extra credit for:
+ I created my own array list class for this project
+ which I am proud of. I also used the
+ Haversine algorithm to adjust the distance between two
+ points in accordance with the curvature of the Earth.
+ Lastly "show" and "direction" can appear in any order
+ in the argument.

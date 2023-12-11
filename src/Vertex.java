@@ -34,7 +34,8 @@ public class Vertex { // vertex class adapted from: https://www.youtube.com/watc
 //        return Math.hypot(ac, bc);
 //    }
 
-    // haversine algorithm to adjust distance to the curvature of the earth
+    // haversine algorithm to adjust distance to the curvature of the earth source:
+    //https://www.geeksforgeeks.org/haversine-formula-to-find-distance-between-two-points-on-a-sphere/#
     public double getDistance(Double x1, Double x2, Double y1, Double y2){
         x1 = Math.toRadians(x1);
         y1 = Math.toRadians(y1);
